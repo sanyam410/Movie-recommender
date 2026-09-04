@@ -94,13 +94,13 @@ jupyter notebook Step_2.ipynb  # Step 2: search, recommend, fallback ladder
 IMDB__1980-2020_.csv
         │
         ▼
-enrich_omdb.py ──────────► imdb_enriched.csv (+ omdb_unmatched.csv)
+OMDB.py ──────────► imdb_enriched.csv (+ omdb_unmatched.csv)
    (OMDb fetch,                    │
     resumable,                     ▼
-    type=movie,              clean_data.py ──────► movie_index.csv (+ dropped_rows.csv)
+    type=movie,              cleaning.py(step 0) ──────► clean_data.csv (+ dropped_rows.csv)
     plot=full)                (3-check validation)         │
                                                              ▼
-                                                    build_embeddings.py
+                                                    build_embeddings.py(Step 1)
                                                              │
                                                              ▼
                                                     movie_embeddings.npy
@@ -169,10 +169,10 @@ Documented deliberately, not hidden:
 | File | Purpose |
 |---|---|
 | `IMDB__1980-2020_.csv` | Original raw dataset |
-| `enrich_omdb.py` | Bulk OMDb enrichment (resumable) |
+| `OMDB.py` | Bulk OMDb enrichment (resumable) |
 | `imdb_enriched.csv` / `omdb_unmatched.csv` | Raw enrichment output, pre-validation |
-| `clean_data.py` | Validation + cleaning (Step 0) |
-| `movie_index.csv` / `dropped_rows.csv` | Validated dataset + audit trail of exclusions |
+| `cleaning.py` | Validation + cleaning (Step 0) |
+| `clean_data.csv` / `dropped_rows.csv` | Validated dataset + audit trail of exclusions |
 | `build_embeddings.py` | Plot embedding (Step 1) |
 | `movie_embeddings.npy` | Cached embedding matrix |
 | `live_additions.csv` | Movies added via the fallback ladder, persisted across rebuilds |
